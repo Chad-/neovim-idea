@@ -2,6 +2,8 @@ import sbt.Keys.{`package` => pack}
 
 addCommandAlias("runPlugin", "; packager/package ; ideaRunner/run ")
 
+addCommandAlias("buildPluginIdea", "; packager/package ; ideaBuilder/compile ")
+
 lazy val root = (project in file("."))
   .enablePlugins(SbtIdeaPlugin)
   .settings(
@@ -33,6 +35,11 @@ lazy val ideaRunner = (project in file("subproject/ideaRunner"))
       s"-Dplugin.path=${packagedPluginDir.value}",
       "-Didea.ProcessCanceledException=disabled"
     )
+  )
+
+lazy val ideaBuilder = (project in file("subproject/ideaBuilder"))
+  .settings(
+    mainClass in Compile := Some("com.intellij.idea.Main")
   )
 
 lazy val packagedPluginDir = settingKey[File]("Path to packaged, but not yet compressed plugin")

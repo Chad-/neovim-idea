@@ -8,6 +8,8 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/project" />
+            <option value="$PROJECT_DIR$/subproject/ideaBuilder" />
+            <option value="$PROJECT_DIR$/subproject/ideaBuilder/project" />
             <option value="$PROJECT_DIR$/subproject/ideaRunner" />
             <option value="$PROJECT_DIR$/subproject/ideaRunner/project" />
             <option value="$PROJECT_DIR$/subproject/packager" />
