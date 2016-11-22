@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="generatePackage" type="SbtRunConfiguration" factoryName="SBT Task">
-    <setting name="tasks" value="buildPluginIdea" />
+    <setting name="tasks" value="packager/package" />
     <setting name="vmparams" value="" />
     <setting name="workingDir" value="$PROJECT_DIR$" />
     <envs />

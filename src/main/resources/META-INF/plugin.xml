@@ -1,7 +1,7 @@
 <idea-plugin version="2">
-  <id>xyz.aoei.test</id>
-  <name>test-sbt</name>
-  <version>1.1</version>
+  <id>xyz.aoei.idea.neovim</id>
+  <name>neovim-idea</name>
+  <version>0.1</version>
   <vendor email="support@yourcompany.com" url="http://www.yourcompany.com">YourCompany</vendor>
 
   <description><![CDATA[
@@ -35,4 +35,9 @@
     </action>
   </actions>
 
+  <application-components>
+    <component>
+      <implementation-class>xyz.aoei.idea.neovim.Neovim</implementation-class>
+    </component>
+  </application-components>
 </idea-plugin>
