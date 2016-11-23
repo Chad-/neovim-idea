@@ -2,7 +2,7 @@
   <configuration default="false" name="IDEA" type="Application" factoryName="Application">
     <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
     <option name="MAIN_CLASS_NAME" value="com.intellij.idea.Main" />
-    <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea &quot;-Xbootclasspath/a:C:/Program Files (x86)/JetBrains/IntelliJ IDEA Community Edition 2016.2.4\lib\boot.jar&quot; -Didea.config.path=C:/Users/Chad\.IdeaIC2016.2\system\plugins-sandbox\config -Didea.system.path=C:/Users/Chad\.IdeaIC2016.2\system\plugins-sandbox\system -Didea.plugins.path=$PROJECT_DIR$/target/neovim-idea -Didea.classpath.index.enabled=false -Didea.required.plugins.id=xyz.aoei.idea.neovim -Didea.platform.prefix=Idea" />
+    <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea -Didea.config.path=$USER_HOME$\.IdeaIC2016.2\system\plugins-sandbox\config -Didea.system.path=$USER_HOME$\.IdeaIC2016.2\system\plugins-sandbox\system -Didea.plugins.path=$PROJECT_DIR$/target/neovim-idea -Didea.classpath.index.enabled=false -Didea.required.plugins.id=xyz.aoei.idea.neovim -Didea.platform.prefix=Idea" />
     <option name="PROGRAM_PARAMETERS" value="" />
     <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
     <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
