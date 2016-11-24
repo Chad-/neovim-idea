@@ -6,7 +6,7 @@ import com.intellij.openapi.vfs.VirtualFile
 import xyz.aoei.neovim.{Neovim => Nvim}
 
 class FileListener(val nvim: Nvim) extends FileEditorManagerAdapter {
-  var selectedTextEditor: Editor = null
+  var selectedTextEditor: Editor = _
 
   override def fileClosed(source: FileEditorManager, file: VirtualFile): Unit = super.fileClosed(source, file)
 

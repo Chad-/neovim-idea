@@ -4,9 +4,10 @@ import com.intellij.openapi.actionSystem.{DataContext, KeyboardShortcut}
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.editor.actionSystem.TypedActionHandler
 
-class NeovimTypedActionHandler extends TypedActionHandler {
-  // create stream
+import xyz.aoei.neovim.{Neovim => Nvim}
+
+class BasicTypedCharHandler(val nvim: Nvim) extends TypedActionHandler {
   override def execute(editor: Editor, c: Char, dataContext: DataContext): Unit = {
-    // add char to stream and consume it
+    nvim.feedkeys(c.toString, "t", true)
   }
 }
