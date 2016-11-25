@@ -29,10 +29,7 @@
   </extensions>
 
   <actions>
-    <action id="EditorBasics.EditorIllustration" class="EditorIllustration" text="Editor Basics"
-            description="Illustrates how to plug an action in">
-      <add-to-group group-id="EditorPopupMenu" anchor="first"/>
-    </action>
+    <action id="ShortcutKeyAction" class="xyz.aoei.idea.neovim.ShortcutKeyAction" />
   </actions>
 
   <application-components>

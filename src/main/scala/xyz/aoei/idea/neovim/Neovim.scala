@@ -2,12 +2,13 @@ package xyz.aoei.idea.neovim
 
 import java.net.Socket
 
+import com.intellij.openapi.Disposable
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.command.WriteCommandAction
 import com.intellij.openapi.components.ApplicationComponent
-import com.intellij.openapi.editor.{LogicalPosition, ScrollType}
-import com.intellij.openapi.editor.actionSystem.EditorActionManager
+import com.intellij.openapi.editor.{EditorFactory, LogicalPosition, ScrollType}
 import com.intellij.openapi.fileEditor.FileEditorManagerListener
+import xyz.aoei.idea.neovim.Listener.{NeovimEditorFactoryListener, NeovimFileEditorManagerListener, NeovimInputEventListener}
 import xyz.aoei.neovim.{Neovim => Nvim}
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -18,25 +19,30 @@ class Neovim extends ApplicationComponent {
     new Nvim(socket.getInputStream, socket.getOutputStream)
   }
 
-  val fileListener = new FileListener(nvim)
+  val fileListener = new NeovimFileEditorManagerListener(nvim)
 
   nvim.onNotification((method, args) => method match {
     case "redraw" => {
       val shouldUpdateText = args.exists(x => x.asInstanceOf[List[_]].head == "put")
       val shouldUpdateCursor = args.exists(x => x.asInstanceOf[List[_]].head == "cursor_goto")
 
-      if (shouldUpdateText) updateText()
-      if (shouldUpdateCursor) updateCursor()
+      if (shouldUpdateText || shouldUpdateCursor) {
+        updateText()
+        updateCursor()
+      }
     }
   })
 
   override def getComponentName: String = "Neovim"
 
   override def initComponent(): Unit = {
-    EditorActionManager.getInstance().getTypedAction.setupHandler(new BasicTypedCharHandler(nvim))
+    EditorFactory.getInstance().addEditorFactoryListener(new NeovimEditorFactoryListener, new Disposable(){
+      override def dispose(): Unit = {}
+    })
 
     val messageBus = ApplicationManager.getApplication.getMessageBus.connect()
     messageBus.subscribe(FileEditorManagerListener.FILE_EDITOR_MANAGER, fileListener)
+    messageBus.subscribe(InputEventListener.INPUT_EVENT, new NeovimInputEventListener(nvim))
 
     println("Init")
     nvim.uiAttach(100, 30, Map())

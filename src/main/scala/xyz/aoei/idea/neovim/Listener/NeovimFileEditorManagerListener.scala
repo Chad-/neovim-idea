@@ -1,11 +1,11 @@
-package xyz.aoei.idea.neovim
+package xyz.aoei.idea.neovim.Listener
 
 import com.intellij.openapi.editor.Editor
-import com.intellij.openapi.fileEditor.{FileEditor, FileEditorManager, FileEditorManagerAdapter, FileEditorManagerEvent}
+import com.intellij.openapi.fileEditor.{FileEditorManager, FileEditorManagerAdapter, FileEditorManagerEvent}
 import com.intellij.openapi.vfs.VirtualFile
 import xyz.aoei.neovim.{Neovim => Nvim}
 
-class FileListener(val nvim: Nvim) extends FileEditorManagerAdapter {
+class NeovimFileEditorManagerListener(val nvim: Nvim) extends FileEditorManagerAdapter {
   var selectedTextEditor: Editor = _
 
   override def fileClosed(source: FileEditorManager, file: VirtualFile): Unit = super.fileClosed(source, file)
