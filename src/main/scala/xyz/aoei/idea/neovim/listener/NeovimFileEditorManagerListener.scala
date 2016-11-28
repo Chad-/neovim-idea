@@ -1,4 +1,4 @@
-package xyz.aoei.idea.neovim.Listener
+package xyz.aoei.idea.neovim.listener
 
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.fileEditor.{FileEditorManager, FileEditorManagerAdapter, FileEditorManagerEvent}

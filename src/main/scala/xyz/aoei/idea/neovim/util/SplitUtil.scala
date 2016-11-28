@@ -1,4 +1,4 @@
-package xyz.aoei.idea.neovim.Util
+package xyz.aoei.idea.neovim.util
 
 import xyz.aoei.neovim.Window
 

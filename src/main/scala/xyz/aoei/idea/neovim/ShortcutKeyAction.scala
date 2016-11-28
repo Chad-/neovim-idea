@@ -7,7 +7,7 @@ import com.intellij.openapi.actionSystem._
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.editor.Editor
 import com.intellij.util.messages.Topic
-import xyz.aoei.idea.neovim.Util.KeyCodes
+import xyz.aoei.idea.neovim.util.KeyCodes
 
 // Create an event to be used on the message bus
 object InputEventListener {

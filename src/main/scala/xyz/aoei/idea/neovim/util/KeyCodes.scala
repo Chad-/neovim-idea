@@ -1,4 +1,4 @@
-package xyz.aoei.idea.neovim.Util
+package xyz.aoei.idea.neovim.util
 
 import java.awt.event.InputEvent._
 import java.awt.event.KeyEvent._

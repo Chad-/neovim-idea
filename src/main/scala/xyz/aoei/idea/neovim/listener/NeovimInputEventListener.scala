@@ -1,9 +1,9 @@
-package xyz.aoei.idea.neovim.Listener
+package xyz.aoei.idea.neovim.listener
 
 import java.awt.event.{InputEvent, KeyEvent}
 
 import xyz.aoei.idea.neovim.InputEventListener
-import xyz.aoei.idea.neovim.Util.KeyCodes
+import xyz.aoei.idea.neovim.util.KeyCodes
 import xyz.aoei.neovim.{Neovim => Nvim}
 
 object NeovimInputEventListener {

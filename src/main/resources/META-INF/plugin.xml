@@ -32,9 +32,9 @@
     <action id="ShortcutKeyAction" class="xyz.aoei.idea.neovim.ShortcutKeyAction" />
   </actions>
 
-  <application-components>
+  <project-components>
     <component>
       <implementation-class>xyz.aoei.idea.neovim.Neovim</implementation-class>
     </component>
-  </application-components>
+  </project-components>
 </idea-plugin>

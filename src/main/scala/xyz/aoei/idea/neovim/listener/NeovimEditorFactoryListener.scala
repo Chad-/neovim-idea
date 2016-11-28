@@ -1,4 +1,4 @@
-package xyz.aoei.idea.neovim.Listener
+package xyz.aoei.idea.neovim.listener
 
 import com.intellij.openapi.editor.event.{EditorFactoryEvent, EditorFactoryListener}
 import xyz.aoei.idea.neovim.ShortcutKeyAction
