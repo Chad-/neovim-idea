@@ -19,7 +19,7 @@ class NeovimFileEditorManagerListener(val nvim: Nvim) extends FileEditorManagerA
 
   override def selectionChanged(event: FileEditorManagerEvent): Unit = {
     // Edit the newly selected file
-    nvim.command("e! " + event.getNewFile.getPath)
+    nvim.command("buffer " + event.getNewFile.getPath)
 
     selectedTextEditor = event.getManager.getSelectedTextEditor
   }

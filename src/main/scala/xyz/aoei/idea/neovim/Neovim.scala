@@ -32,7 +32,7 @@ class Neovim(project: Project) extends ProjectComponent {
       val shouldUpdateCursor = args.exists(x => x.asInstanceOf[List[_]].head == "cursor_goto")
 
       if (shouldUpdateText || shouldUpdateCursor) {
-        updateText()
+//        updateText()
 //        updateCursor()
         updateState()
       }
@@ -49,14 +49,17 @@ class Neovim(project: Project) extends ProjectComponent {
       override def dispose(): Unit = {}
     })
 
-    val messageBus = ApplicationManager.getApplication.getMessageBus.connect()
+    val messageBus = project.getMessageBus.connect()
     messageBus.subscribe(FileEditorManagerListener.FILE_EDITOR_MANAGER, fileListener)
     messageBus.subscribe(InputEventListener.INPUT_EVENT, new NeovimInputEventListener(nvim))
 
     messageBus.subscribe(CursorMoveListener.CURSOR_MOVED, new NeovimCursorMoveListener())
-    messageBus.subscribe(WindowsChangeListener.WINDOWS_CHANGED, new NeovimWindowsChangeListener())
+    messageBus.subscribe(BuffersChangeListener.BUFFERS_CHANGED, new NeovimBuffersChangeListener())
 
-    println("Init")
+    val windowChangeListener = new NeovimWindowsChangeListener()
+    messageBus.subscribe(WindowsChangeListener.WINDOWS_CHANGED, windowChangeListener)
+    messageBus.subscribe(WindowsChangeListener.SELECTED_CHANGED, windowChangeListener)
+
     nvim.uiAttach(100, 30, Map())
   }
 
@@ -64,39 +67,21 @@ class Neovim(project: Project) extends ProjectComponent {
 //    nvim.quit()
   }
 
-  private def updateText(): Unit = {
-    for {
-      buffer <- nvim.getCurrentBuf
-      lines <- buffer.getLines(0, -1, false)
-    } yield {
-      val text = lines.mkString("\n")
-
-      val editor = fileListener.selectedTextEditor
-
-      val project = editor.getProject
-      val document = editor.getDocument
-
-      WriteCommandAction.runWriteCommandAction(project, new Runnable {
-        override def run(): Unit = {
-          document.replaceString(0, document.getTextLength, text)
-//          document.setText(text)
-        }
-      })
-    }
-  }
-
   private def updateState(): Unit = {
     for {
       windows <- nvim.listWins
+      selectedWindow <- nvim.getCurrentWin
       cursors <- Future.sequence(windows.map(w => w.getCursor))
+      windowBuffers <- Future.sequence(windows.map(w => w.getBuf))
       windowPositions <- Future.sequence(windows.map(w => w.getPosition))
     } yield {
       state.windows = windows
+      state.selectedWindow = selectedWindow
+      state.windowPositions = windowPositions.map(x => (x.head-1, x(1)))
+      state.windowBuffers = windowBuffers
 
       // Row numbers should start at 0 not 1
       state.cursors = cursors.map(x => (x.head-1, x(1)))
-
-      state.windowPositions = windowPositions.map(x => (x.head-1, x(1)))
     }
   }
 

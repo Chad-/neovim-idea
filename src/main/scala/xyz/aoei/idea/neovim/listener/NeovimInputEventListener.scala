@@ -13,7 +13,7 @@ object NeovimInputEventListener {
       case (m, s) => (mod & m) != 0
     }.values.mkString
 
-  // Convert a java keyevent into a string nvim unsterstands
+  // Convert a java keyevent into a string nvim understands
   def convertKeyEvent(e: KeyEvent): String = {
     val code = e.getKeyCode
     val mods = e.getModifiersEx
@@ -33,8 +33,6 @@ object NeovimInputEventListener {
 class NeovimInputEventListener(val nvim: Nvim) extends InputEventListener {
   override def inputEvent(e: InputEvent): Unit = {
     val key = NeovimInputEventListener.convertKeyEvent(e.asInstanceOf[KeyEvent])
-
-    println(key + "\t\t\t::\t\t" + e)
 
     // Give nvim the key
     nvim.input(key)

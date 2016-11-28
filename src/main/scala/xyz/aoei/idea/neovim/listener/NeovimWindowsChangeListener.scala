@@ -51,4 +51,12 @@ class NeovimWindowsChangeListener extends WindowsChangeListener {
         }
     }
   }
+
+  override def selectedChanged(state: NeovimState): Unit = {
+    if (state.windowToEditor.contains(state.selectedWindow)) {
+      Util.invokeLater(() => {
+        state.windowToEditor(state.selectedWindow).setAsCurrentWindow(true)
+      })
+    }
+  }
 }
