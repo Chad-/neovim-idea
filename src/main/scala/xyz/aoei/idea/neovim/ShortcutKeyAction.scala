@@ -1,6 +1,6 @@
 package xyz.aoei.idea.neovim
 
-import java.awt.event.{InputEvent, KeyEvent}
+import java.awt.event.InputEvent
 import javax.swing.KeyStroke
 
 import com.intellij.openapi.actionSystem._

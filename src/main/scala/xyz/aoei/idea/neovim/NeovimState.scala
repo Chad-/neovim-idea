@@ -1,6 +1,5 @@
 package xyz.aoei.idea.neovim
 
-import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.fileEditor.impl.EditorWindow
 import com.intellij.openapi.project.Project
 import com.intellij.util.messages.Topic

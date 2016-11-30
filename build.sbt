@@ -8,7 +8,7 @@ lazy val root = (project in file("."))
     version := "0.1",
     scalaVersion := "2.11.8",
 
-    libraryDependencies += "xyz.aoei" %% "neovim-scala" % "1.1"
+    libraryDependencies += "xyz.aoei" %% "neovim-scala" % "1.2"
   )
 
 lazy val packager: Project = (project in file("subproject/packager"))

@@ -3,8 +3,6 @@ package xyz.aoei.idea.neovim
 import java.net.Socket
 
 import com.intellij.openapi.Disposable
-import com.intellij.openapi.application.ApplicationManager
-import com.intellij.openapi.command.WriteCommandAction
 import com.intellij.openapi.components.ProjectComponent
 import com.intellij.openapi.editor.EditorFactory
 import com.intellij.openapi.fileEditor.FileEditorManagerListener
@@ -32,11 +30,10 @@ class Neovim(project: Project) extends ProjectComponent {
       val shouldUpdateCursor = args.exists(x => x.asInstanceOf[List[_]].head == "cursor_goto")
 
       if (shouldUpdateText || shouldUpdateCursor) {
-//        updateText()
-//        updateCursor()
         updateState()
       }
     }
+    case x => println("Notification: " + x)
   })
 
   override def getComponentName: String = "Neovim"
@@ -61,9 +58,11 @@ class Neovim(project: Project) extends ProjectComponent {
     messageBus.subscribe(WindowsChangeListener.SELECTED_CHANGED, windowChangeListener)
 
     nvim.uiAttach(100, 30, Map())
+    nvim.setCurrentDir(project.getBaseDir.getPath)
   }
 
   override def disposeComponent(): Unit = {
+    nvim.uiDetach()
 //    nvim.quit()
   }
 
