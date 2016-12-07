@@ -1,9 +1,9 @@
 package xyz.aoei.idea.neovim.listener
 
-import java.awt.event.{InputEvent, KeyEvent}
+import java.awt.event.{InputEvent, KeyEvent, KeyListener}
 
-import xyz.aoei.idea.neovim.InputEventListener
 import xyz.aoei.idea.neovim.util.KeyCodes
+import xyz.aoei.idea.neovim.{InputEventListener, NeovimProcess}
 import xyz.aoei.neovim.{Neovim => Nvim}
 
 object NeovimInputEventListener {
@@ -30,11 +30,18 @@ object NeovimInputEventListener {
   }
 }
 
-class NeovimInputEventListener(val nvim: Nvim) extends InputEventListener {
+class NeovimInputEventListener() extends InputEventListener with KeyListener {
   override def inputEvent(e: InputEvent): Unit = {
-    val key = NeovimInputEventListener.convertKeyEvent(e.asInstanceOf[KeyEvent])
+    keyTyped(e.asInstanceOf[KeyEvent])
+  }
+
+  override def keyTyped(e: KeyEvent): Unit = {
+    val key = NeovimInputEventListener.convertKeyEvent(e)
 
     // Give nvim the key
-    nvim.input(key)
+    NeovimProcess.getInstance().input(key)
   }
+
+  override def keyPressed(e: KeyEvent): Unit = {}
+  override def keyReleased(e: KeyEvent): Unit = {}
 }

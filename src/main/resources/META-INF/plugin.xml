@@ -25,7 +25,7 @@
   -->
 
   <extensions defaultExtensionNs="com.intellij">
-    <!-- Add your extensions here -->
+    <fileEditorProvider implementation="xyz.aoei.idea.neovim.NeovimEditorProvider"/>
   </extensions>
 
   <actions>

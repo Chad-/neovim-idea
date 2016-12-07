@@ -6,9 +6,9 @@ import javax.swing.{DefaultListModel, JPanel, ListSelectionModel}
 
 import com.intellij.codeInsight.hint.HintManagerImpl
 import com.intellij.openapi.application.ApplicationManager
-import com.intellij.openapi.editor.{Editor, EditorFactory}
-import com.intellij.ui.{LightweightHint, ListScrollingUtil, ScrollPaneFactory, ScrollingUtil}
+import com.intellij.openapi.editor.EditorFactory
 import com.intellij.ui.components.JBList
+import com.intellij.ui.{LightweightHint, ScrollPaneFactory, ScrollingUtil}
 
 class Popupmenu() extends LightweightHint(new JPanel(new BorderLayout())) {
   setForceShowAsPopup(true)

@@ -10,4 +10,13 @@ object Util {
       }
     })
   }
+
+  def colorToRgb(color: Int): List[Int] = {
+    List(16, 8, 0).map {
+      shift => {
+        val mask = 0xff << shift
+        (color & mask) >> shift
+      }
+    }
+  }
 }
