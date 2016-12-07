@@ -13,6 +13,7 @@ case class UIState(cursor: (Int, Int) = (0,0),
                    background: Int = 0,
                    special: Int = 0,
                    highlightSet: Attributes = Attributes(),
+                   mode: String = "normal",
                    dirty: Boolean = true
                   ) {
   override def toString: String = grid.foldLeft("")(_+_.foldLeft("")(_+_.text)+"\n").init
@@ -62,6 +63,7 @@ object UIState {
 
       case ("cursor_goto", List(row: Int, col: Int)) =>
         uiState = uiState.copy(cursor = (row, col))
+        dirty = true
 
       case ("update_fg", List(color: Int)) =>
         uiState = uiState.copy(foreground = color)
@@ -133,7 +135,10 @@ object UIState {
       case ("bell", _) =>
       case ("visual_bell", _) =>
       case ("update_menu", _) =>
-      case ("mode_change", List(mode)) =>
+      case ("mode_change", List(mode: String)) =>
+        uiState = uiState.copy(mode = mode)
+        dirty = true
+
       case ("popupmenu_show", List(items: List[Any], selected: Int, row: Int, col: Int)) =>
 //        popupmenuShow(items, selected, row, col)
       case ("popupmenu_select", List(selected: Int)) =>

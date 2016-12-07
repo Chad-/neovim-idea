@@ -1,15 +1,22 @@
 package xyz.aoei.idea.neovim
 
-import java.awt.{Color, Font}
+import java.awt.{Color, Font, Graphics}
 import javax.swing.text._
 import javax.swing.{JTextPane, SwingUtilities}
 
 import com.intellij.openapi.editor.colors.EditorColorsManager
+import com.intellij.openapi.ui.TypingTarget
+import com.intellij.openapi.util.ActionCallback
+import xyz.aoei.idea.neovim.ui.NeovimCaret
 import xyz.aoei.idea.neovim.util.{BatchDocument, Util}
 
 class NeovimEditorComponent extends JTextPane {
   setEditable(false)
-  getCaret.setVisible(true)
+
+  val caret = new NeovimCaret
+  caret.setVisible(true)
+
+  setCaret(caret)
 
   val fontScheme = EditorColorsManager.getInstance().getGlobalScheme
   setFont(new Font(fontScheme.getEditorFontName, Font.PLAIN, fontScheme.getEditorFontSize))
@@ -35,11 +42,13 @@ class NeovimEditorComponent extends JTextPane {
       override def run(): Unit = {
         setDocument(bdoc)
         setCaretPosition((state.grid.head.length+1) * state.cursor._1 + state.cursor._2)
-        getCaret.setVisible(true)
+        caret.setVisible(true)
+        caret.setMode(state.mode)
       }
     })
   }
 
+  // Get text style from cache or create it
   def getStyle(attr: Attributes): SimpleAttributeSet = {
     if (!styles.contains(attr)) {
       def intToColor(color: Int): Color = {

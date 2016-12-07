@@ -30,18 +30,11 @@ object NeovimInputEventListener {
   }
 }
 
-class NeovimInputEventListener() extends InputEventListener with KeyListener {
+class NeovimInputEventListener() extends InputEventListener {
   override def inputEvent(e: InputEvent): Unit = {
-    keyTyped(e.asInstanceOf[KeyEvent])
-  }
-
-  override def keyTyped(e: KeyEvent): Unit = {
-    val key = NeovimInputEventListener.convertKeyEvent(e)
+    val key = NeovimInputEventListener.convertKeyEvent(e.asInstanceOf[KeyEvent])
 
     // Give nvim the key
     NeovimProcess.getInstance().input(key)
   }
-
-  override def keyPressed(e: KeyEvent): Unit = {}
-  override def keyReleased(e: KeyEvent): Unit = {}
 }

@@ -25,7 +25,7 @@ object ShortcutKeyAction {
   }
 
   // Generate a list of all possible shortcut combinations
-  private val shortcuts: List[KeyboardShortcut] = {
+  val shortcuts: List[KeyboardShortcut] = {
     val modCombinations = KeyCodes.modifiers.subsets
       .map(_.foldLeft(0)((acc, x) => acc | x)).toList
 
@@ -38,6 +38,7 @@ object ShortcutKeyAction {
   // register the shortcuts with the editor
   def registerEditor(e: Editor): Unit = {
     instance.registerCustomShortcutSet(new CustomShortcutSet(shortcuts:_*), e.getComponent)
+    println("Registered " + e)
   }
 }
 
